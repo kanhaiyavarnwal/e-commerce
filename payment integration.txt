@@ -1,0 +1,26 @@
+payment integration
+producty review 
+product related suggestion product shown below
+filter (upper / bottom / winter clothes)
+user can search product 
+
+Admin can see:
+
+Total Users
+
+Total Orders
+
+Total Revenue
+
+Product Stock
+
+Order Status
+Admin can edit:
+
+Price
+
+Stock
+
+Description
+
+Image

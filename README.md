@@ -91,7 +91,7 @@ CLOUDINARY_API_SECRET=
 
 ## 🌟 Future Improvements
 
-- Razorpay Payment Integration
+
 - Product Reviews
 - Wishlist
 - Coupons

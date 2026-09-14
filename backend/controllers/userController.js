@@ -1,136 +1,96 @@
 import userModel from "../models/userSchema.js";
-import validator from 'validator'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import validator from "validator";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { asyncHandler } from "../utils/Asynchandler.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { mailSender } from "../utils/mailSender.js";
 
-const createToken = (id)=>{
-    return jwt.sign({id},process.env.JWT_SECRET)
-}
-
-
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
+};
 
 // Route for user login
-const loginUser=async(req,res)=>{
 
-  try{
-  const {email,password} = req.body;
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  console.log(req.body);
+  const user = await userModel.findOne({ email });
 
-  const user = await userModel.findOne({email});
-
-  if(!user){
-    return res.json({
-        success:false,
-        message:"User doesnt exists"
-    })
+  if (!user) {
+    throw new ApiError(404, "User doesnt exist");
   }
-  const isMatch = await bcrypt.compare(password,user.password);
-  if(isMatch){
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (isMatch) {
     const token = createToken(user._id);
-    res.json({
-        success:true,
-        token,
-    })
+
+    res.json(
+      new ApiResponse(201, token, ""),
+      //     {
+      //     success:true,
+      //     token,
+      // }
+    );
+  } else {
+    throw new ApiError(403, "password is incorrect");
+ 
   }
-  else{
-    res.json({
-        success:false,
-        message:"Invalid credentials",
-    });
+});
 
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+  console.log(req.body);
+  // check user exist or not
+  const exists = await userModel.findOne({ email });
+  if (exists) {
+    throw new ApiError(409, "User already exists");
   }
+  // validate email and password
+  if (!validator.isEmail(email)) {
+    throw new ApiError(401, {}, "Pleas enter a valid email");
 
-  }catch(err){
-    console.log(err);
-   res.json({
-    success:false,
-    message:err.message,
-   }) 
+   
   }
+  if (password.length < 8) {
+    throw new ApiError(402, "passsword must be atleast 8 character");
+  }
+  // hashing user password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const newUser = new userModel({
+    name,
+    email,
+    password: hashedPassword,
+  });
 
-  
+  const user = await newUser.save();
 
+  const token = createToken(user._id);
+    await mailSender(user.email, 
+    "Welcome to our E-commerce Platform", 
+    `<h1>Welcome ${user.name}!</h1><p>Thank you for registering with us. We're excited to have you on board and look forward to providing you with the best shopping experience.</p>`);
+  res.json(
+    new ApiResponse(200, token, "Account created successfully"),
 
-}
+   
+  );
+  console.log(newUser);
+});
 
-// router for registration
+const adminLogin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-const registerUser = async(req,res)=>{
-        try{
-            const {name,email,password} = req.body;
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    const token = jwt.sign(email + password, process.env.JWT_SECRET);
+    console.log(token);
+    res.json(new ApiResponse(200, token, "admin logged in"));
+  } else {
+    throw new ApiError(401, "email or password is not match");
+  }
+});
 
-            // check user exist or not
-            const exists=await userModel.findOne({email});
-            if(exists){
-                return res.json({
-                    success:false,
-                    message:"User Already Exists",
-                })
-            }
-            // validate email and password
-            if(!validator.isEmail(email)){
-                return res.json({
-                    success:false,
-                    message:"Please entre valid email",
-                })
-            }
-            if(password.length <8){
-                return res.json({
-                    success:false,
-                    message:"Please Enter a Strong Password"
-                })
-            }
-            // hashing user password
-            const salt = await bcrypt.genSalt(10)
-            const hashedPassword= await bcrypt.hash(password,salt)
-            const newUser=new userModel({
-                name,
-                email,
-                password:hashedPassword,
-            })
-
-            const user = await newUser.save();
-
-            const token = createToken(user._id)
-            res.json({
-                success:true,
-                token,
-            })
-            console.log(token);
-
-
-
-        }catch(err){
-            console.log(err)
-            res.json({
-                success:false,
-                message:err.message,
-            })
-
-        }
-}
-// Route for admin login 
-const adminLogin = async(req,res)=>{
-    try{
-        const {email,password} = req.body;
-        if(email === process.env.ADMIN_EMAIL && password ===process.env.ADMIN_PASSWORD){
-            const token = jwt.sign(email+password,process.env.JWT_SECRET)
-            res.json({
-                success:true,
-                token,
-            })
-        }
-        else{
-            res.json({
-                success:false,
-                message:"Invalid credentials"
-            })
-        }
-    }catch(err){
-        console.log(err);
-         res.json({
-                success:false,
-                message:err.message,
-            })
-    }
-}
-export {loginUser,registerUser,adminLogin}
+export { loginUser, registerUser, adminLogin };

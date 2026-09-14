@@ -1,25 +1,16 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
+import { asyncHandler } from "../utils/Asynchandler.js";
+import { ApiError } from "../utils/ApiError.js";
 
+const authUser = asyncHandler(async (req, res, next) => {
+  const { token } = req.headers;
+  if (!token) {
+    throw new ApiError(404, {}, "not authorized login again");
+  }
 
-const authUser =async(req,res,next)=>{
-const {token} =req.headers;
-if(!token){
-    return res.json({
-            success:false,
-            message:"Not Authorisiez Login Again"
-    })
-}
-try{
-    const token_decode = jwt.verify(token,process.env.JWT_SECRET)
-    req.body.userId = token_decode.id
-    next()
-}catch(err){
-console.log(err)
-res.json({
-    success:false,
-    message:err.message
-})
-}
+  const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+  req.body.userId = token_decode.id;
+  next();
+});
 
-}
-export default authUser
+export default authUser;

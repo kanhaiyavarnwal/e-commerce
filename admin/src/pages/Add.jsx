@@ -41,7 +41,7 @@ export default function Add({ token }) {
         formData,
         { headers: { token } },
       );
-
+// console.log("clicked")
       if (response.data.success) {
         toast.success(response.data.message);
         setName("");
@@ -55,7 +55,7 @@ export default function Add({ token }) {
         toast.error(response.data.message);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       toast.error(err.message);
     }
   };

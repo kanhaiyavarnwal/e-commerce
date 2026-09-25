@@ -45,7 +45,7 @@ const port = process.env.PORT || 6000;
 connectCloudinary();
 connectDb()
   .then(() => {
-    app.get("/user", (req, res) => {
+    app.get("/", (req, res) => {
       return res.json(
         new ApiResponse(203, {userModel }, "your server work"),
       );

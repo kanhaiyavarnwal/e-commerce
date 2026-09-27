@@ -22,7 +22,7 @@ import Profile from "./pages/Profile";
 export default function App() {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw]  lg:px-[9vw]">
-      <Suspense fallback={<div>Loading...</div>}></Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
       <ToastContainer />
       <Navbar />
       <SearchBar />
@@ -67,7 +67,7 @@ export default function App() {
           }
         />
       </Routes>
-
+</Suspense>
       <Footer />
     </div>
   );

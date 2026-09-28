@@ -22,10 +22,11 @@ import Profile from "./pages/Profile";
 export default function App() {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw]  lg:px-[9vw]">
-      <Suspense fallback={<div>Loading...</div>}>
+   
       <ToastContainer />
       <Navbar />
       <SearchBar />
+         <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />

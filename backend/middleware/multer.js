@@ -2,7 +2,10 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-const uploadDir = path.join(process.cwd(), "uploads");
+// const uploadDir = path.join(process.cwd(), "uploads");
+const uploadDir = process.env.VERCEL
+  ? "/tmp/uploads"
+  : path.join(process.cwd(), "uploads");
 
 //  create folder if not exists
 if (!fs.existsSync(uploadDir)) {
@@ -25,13 +28,3 @@ const upload = multer({ storage });
 export default upload;
 
 
-// import multer from "multer";
-
-// // Store uploaded files in memory instead of /uploads folder
-// const storage = multer.memoryStorage();
-
-// const upload = multer({
-//   storage: storage,
-// });
-
-// export default upload;

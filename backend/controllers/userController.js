@@ -8,6 +8,7 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { mailSender } from "../utils/mailSender.js";
 
 const createToken = (id) => {
+  
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 

@@ -49,8 +49,8 @@ A full-stack web application built using the MERN stack, consisting of three mai
 project/
 │
 ├── backend/
-│   ├── app.js
-│   ├── package.json
+│   ├── app.js/
+│   ├── package.json/
 │   ├── src/
 │   |    ├── config/
 │   |    ├── controllers/
@@ -66,11 +66,11 @@ project/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── assets/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── .env
-│   ├── package.json
-│   └── vite.config.js
+│   │   ├── App.jsx/
+│   │   └── main.jsx/
+│   ├── .env/
+│   ├── package.json/
+│   └── vite.config.js/
 │
 ├── admin/
 │   ├── public/
@@ -78,13 +78,13 @@ project/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── assets/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── .env
-│   ├── package.json
-│   └── vite.config.js
+│   │   ├── App.jsx/
+│   │   └── main.jsx/
+│   ├── .env/
+│   ├── package.json/
+│   └── vite.config.js/
 │
-└── README.md
+└── README.md/
 
 
 *Note: This is a suggested project structure. Adjust it according to your actual folders and files.*

@@ -161,6 +161,7 @@ Create `.env`:
 
 env
 VITE_BACKEND_URL=your backend url
+
 VITE_RAZORPAY_KEY_ID=razorpay_key_id
 
 

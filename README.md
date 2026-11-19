@@ -46,45 +46,45 @@ A full-stack web application built using the MERN stack, consisting of three mai
 ## Project Structure
 
 
-project/
-│
-├── backend/
-│   ├── app.js/
-│   ├── package.json/
-│   ├── src/
-│   |    ├── config/
-│   |    ├── controllers/
-│   |    ├── models/
-│   |    ├── routes/
-│   |    ├── middleware/
-│   |    └── utils/
-│   |──.env
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── assets/
-│   │   ├── App.jsx/
-│   │   └── main.jsx/
-│   ├── .env/
-│   ├── package.json/
-│   └── vite.config.js/
-│
-├── admin/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── assets/
-│   │   ├── App.jsx/
-│   │   └── main.jsx/
-│   ├── .env/
-│   ├── package.json/
-│   └── vite.config.js/
-│
-└── README.md/
+                            project/
+                            │
+                            ├── backend/
+                            │   ├── app.js/
+                            │   ├── package.json/
+                            │   ├── src/
+                            │   |    ├── config/
+                            │   |    ├── controllers/
+                            │   |    ├── models/
+                            │   |    ├── routes/
+                            │   |    ├── middleware/
+                            │   |    └── utils/
+                            │   |──.env
+                            │
+                            ├── frontend/
+                            │   ├── public/
+                            │   ├── src/
+                            │   │   ├── components/
+                            │   │   ├── pages/
+                            │   │   ├── assets/
+                            │   │   ├── App.jsx/
+                            │   │   └── main.jsx/
+                            │   ├── .env/
+                            │   ├── package.json/
+                            │   └── vite.config.js/
+                            │
+                            ├── admin/
+                            │   ├── public/
+                            │   ├── src/
+                            │   │   ├── components/
+                            │   │   ├── pages/
+                            │   │   ├── assets/
+                            │   │   ├── App.jsx/
+                            │   │   └── main.jsx/
+                            │   ├── .env/
+                            │   ├── package.json/
+                            │   └── vite.config.js/
+                            │
+                            └── README.md/
 
 
 *Note: This is a suggested project structure. Adjust it according to your actual folders and files.*
@@ -103,14 +103,17 @@ Install the following before running the project:
 ### 1. Clone Repository
 
 open terminal and execute below line
+
 git clone https://github.com/kanhaiyavarnwal/e-commerce.git
 
 
 
 ### 2. Backend Setup
 
- go to the folder open terminal and run the below line: 
+ go to the folder open terminal and run the below line:
+
      (1) cd backend
+
      (2) npm install
 
 
@@ -151,6 +154,7 @@ you see: http://localhost:5000
 Open a new terminal:
 
     cd frontend
+
     npm install
 
 Create `.env`:
@@ -163,6 +167,7 @@ VITE_RAZORPAY_KEY_ID=razorpay_key_id
 Start frontend:
 
     npm run dev
+
 copy the url paste it into chrome tab 
 
 
@@ -172,6 +177,7 @@ Open another terminal:
 
 
     cd admin
+
     npm install
 
 
@@ -184,6 +190,7 @@ VITE_BACKEND_URL:your backend url
 Start the admin development server:
 
      npm run dev
+
 copy the url paste it into chrome tab 
 
 
